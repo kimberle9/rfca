@@ -5,10 +5,6 @@ date: "9/28/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## rfca
 
 This package contains functions that trains a Random Forest Model with a labelled Seurat Object, for predicting cell types/states in unlabelled datasets. It also contains a pre-trained Random Forest model, as well as example datasets. 
