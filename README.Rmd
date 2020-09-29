@@ -19,35 +19,41 @@ In addition, despite the increasing amounts of scRNAseq datasets being generated
 
 ## Examples
 
-```R
+
+```{r}
 # Load the rfca and Seurat libraries
 library(rfca)
 library(Seurat)
 
 # Create Seurat Object with PCA and UMAP calculated
 mySeuratObject <- createSeuratObjectPipeline(data.dir = "~/filtered_feature_bc_matrix", nFeature_RNA_lower = 500, nFeature_RNA_upper = 5000, percent.mt = 5, nfeatures = 2000, dims = 20, clusterResolution = 0.8)
+# Assign cell type/state Idents to mySeuratObject manually, if you want to use it as a training dataset
+
+# Visualize Seurat Object with a UMAP plot
 DimPlot(mySeuratObject)
-# Assign cell type/state Idents to mySeuratObject manually, if you want to use it as a training dataset.
+```
+
+```{r, echo=FALSE}
+library(Seurat)
+data("exampleSeuratObjectUnlabelled")
+DimPlot(exampleSeuratObjectUnlabelled)
+```
+
+```{r}
 
 # Create Random Forest Model with your labelled Seurat Object
-myRandomForestModel <- createRFModel(mySeuratObjectLabelled)
-
-# Create Random Forest Model with example labelled Seurat Object
 data("exampleSeuratObjectLabelled")
-exampleRandomForestModel <- createRFModel(exampleSeuratObjectLabelled)
+myRandomForestModel <- createRFModel(exampleSeuratObjectLabelled)
+
+# Create marker gene list from random forest model
+markerGeneList <- createGeneLists(myRandomForestModel)
+
+# Visualize Feature Plot based on marker gene list
+myPlot <- cellMarkerPlots(exampleSeuratObjectLabelled, geneList = markerGeneList)
 
 # Predict cells based on your own created Random Forest Model created above
-automaticallyLabelledSeuratObject <- predictCells(mySeuratObject, myRandomForestModel)
-DimPlot(automaticallyLabelledSeuratObject)
-
-# Predict cells based on pre-loaded Random Forest Model
-automaticallyLabelledSeuratObject <- predictCells(mySeuratObject)
-DimPlot(automaticallyLabelledSeuratObject)
-
-# Predict cells based on example unlabelled Seurat Object
 data("exampleSeuratObjectUnlabelled")
-automaticallyLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
-DimPlot(automaticallyLabelledSeuratObject)
+automaticallyLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandomForestModel)
 
 ```
 
