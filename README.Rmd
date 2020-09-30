@@ -62,8 +62,11 @@ markerGeneList <- createGeneLists(myRandomForestModel)
 myPlot <- cellMarkerPlots(exampleSeuratObjectLabelled, geneList = markerGeneList)
 myPlot
 
-# Predict cells based on your own created Random Forest Model created above
+# Predict cells based on your own Random Forest Model created above
 autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandomForestModel)
+
+# Predict cells based on my pre-loaded and pre-train Random Forest Model
+autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
 
 ```
 
