@@ -9,7 +9,8 @@ output:
 
 # rfca
 
-This package contains functions that trains a Random Forest Model with a labelled Seurat Object, for predicting cell types/states in unlabelled datasets. It also contains a pre-trained Random Forest model, as well as example datasets. 
+This package contains functions that trains a Random Forest Model with a labelled Seurat Object, for predicting cell types/states in unlabelled datasets. It also contains a pre-trained Random Forest model, as well as example datasets.
+
 # Introduction
 
 Manual cell annotation of scRNAseq datasets, typically based on marker genes, can be time-consuming and biased. Being able to automatically predict cell types/states in a cell-by-cell and cluster-unbiased way is useful for fast and accurate phenotyping. 
@@ -40,7 +41,7 @@ mySeuratObject <- createSeuratObjectPipeline(data.dir = "~/filtered_feature_bc_m
                                              dims = 20, 
                                              clusterResolution = 0.8)
 
-# Assign cell type/state Idents to mySeuratObject manually, if you want to use it as a training dataset
+# Assign cell type Idents to mySeuratObject manually, if you want to use it as a training dataset
 ```
 
 ## Example 2: Using Random Forest to train and predict cell types

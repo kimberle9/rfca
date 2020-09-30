@@ -4,7 +4,10 @@ rfca
 This package contains functions that trains a Random Forest Model with a
 labelled Seurat Object, for predicting cell types/states in unlabelled
 datasets. It also contains a pre-trained Random Forest model, as well as
-example datasets. \# Introduction
+example datasets.
+
+Introduction
+============
 
 Manual cell annotation of scRNAseq datasets, typically based on marker
 genes, can be time-consuming and biased. Being able to automatically
@@ -45,7 +48,7 @@ mySeuratObject <- createSeuratObjectPipeline(data.dir = "~/filtered_feature_bc_m
                                              dims = 20, 
                                              clusterResolution = 0.8)
 
-# Assign cell type/state Idents to mySeuratObject manually, if you want to use it as a training dataset
+# Assign cell type Idents to mySeuratObject manually, if you want to use it as a training dataset
 ```
 
 Example 2: Using Random Forest to train and predict cell types
@@ -68,24 +71,24 @@ myRandomForestModel <- createRFModel(exampleSeuratObjectLabelled)
     ##                      Number of trees: 500
     ## No. of variables tried at each split: 13
     ## 
-    ##         OOB estimate of  error rate: 4.46%
+    ##         OOB estimate of  error rate: 4.7%
     ## Confusion matrix:
     ##                  Astrocytes Endothelial Microglia Neurons Oligodendrocytes OPCs
-    ## Astrocytes               47           0         0       0                0    0
+    ## Astrocytes               46           0         0       0                1    0
     ## Endothelial               0          51         2       1                0    0
     ## Microglia                 0           0        47       0                0    0
-    ## Neurons                   0           0         0      47                1    3
+    ## Neurons                   1           0         0      46                1    3
     ## Oligodendrocytes          0           0         0       1               46    0
-    ## OPCs                      0           0         1       2                1   46
+    ## OPCs                      0           0         1       1                1   47
     ## Tcells                    0           0         2       0                0    0
     ## VSMCs                     1           0         1       0                0    0
     ##                  Tcells VSMCs class.error
-    ## Astrocytes            0     0  0.00000000
+    ## Astrocytes            0     0  0.02127660
     ## Endothelial           0     0  0.05555556
     ## Microglia             0     0  0.00000000
-    ## Neurons               1     0  0.09615385
+    ## Neurons               1     0  0.11538462
     ## Oligodendrocytes      0     0  0.02127660
-    ## OPCs                  1     0  0.09803922
+    ## OPCs                  1     0  0.07843137
     ## Tcells               50     0  0.03846154
     ## VSMCs                 0    52  0.03703704
 
@@ -130,6 +133,6 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandom
 
     ## 
     ##       Astrocytes      Endothelial        Microglia          Neurons 
-    ##               57               45               60               44 
+    ##               56               45               60               44 
     ## Oligodendrocytes             OPCs           Tcells            VSMCs 
-    ##               54               48               47               41
+    ##               54               48               47               42
