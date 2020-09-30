@@ -68,5 +68,8 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandom
 # Predict cells based on my pre-loaded and pre-trained Random Forest Model
 autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
 
+# Visualize autoLabelledSeuratObject
+DimPlot(autoLabelledSeuratObject)
+
 ```
 

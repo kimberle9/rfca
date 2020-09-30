@@ -15,6 +15,6 @@ cellMarkerPlots <- function(seuratObj, geneList = gsl){
     seuratObj<- AddMetaData(seuratObj, col.name = name, metadata = averageScore)
     print(paste0("Calculating average expression of genes in ", name, " list."))
   }
-  fPlot <- FeaturePlot(seuratObj, names(geneList))
+  fPlot <- FeaturePlot(seuratObj, names(geneList), pt.size = 0.3)
   return(fPlot)
 }

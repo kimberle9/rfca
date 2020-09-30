@@ -71,22 +71,22 @@ myRandomForestModel <- createRFModel(exampleSeuratObjectLabelled)
     ##                      Number of trees: 500
     ## No. of variables tried at each split: 13
     ## 
-    ##         OOB estimate of  error rate: 4.7%
+    ##         OOB estimate of  error rate: 3.96%
     ## Confusion matrix:
     ##                  Astrocytes Endothelial Microglia Neurons Oligodendrocytes OPCs
     ## Astrocytes               46           0         0       0                1    0
-    ## Endothelial               0          52         2       0                0    0
+    ## Endothelial               0          54         0       0                0    0
     ## Microglia                 0           0        47       0                0    0
-    ## Neurons                   1           0         0      46                1    3
+    ## Neurons                   1           0         0      47                1    2
     ## Oligodendrocytes          0           0         0       1               46    0
     ## OPCs                      0           0         1       1                1   47
     ## Tcells                    0           0         2       1                0    0
     ## VSMCs                     1           0         1       0                0    0
     ##                  Tcells VSMCs class.error
     ## Astrocytes            0     0  0.02127660
-    ## Endothelial           0     0  0.03703704
+    ## Endothelial           0     0  0.00000000
     ## Microglia             0     0  0.00000000
-    ## Neurons               1     0  0.11538462
+    ## Neurons               1     0  0.09615385
     ## Oligodendrocytes      0     0  0.02127660
     ## OPCs                  1     0  0.07843137
     ## Tcells               49     0  0.05769231
@@ -133,9 +133,9 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandom
 
     ## 
     ##       Astrocytes      Endothelial        Microglia          Neurons 
-    ##               57               45               59               43 
+    ##               56               45               58               43 
     ## Oligodendrocytes             OPCs           Tcells            VSMCs 
-    ##               54               48               48               42
+    ##               55               48               48               43
 
 ``` r
 # Predict cells based on my pre-loaded and pre-trained Random Forest Model
@@ -147,3 +147,10 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
     ##               53               46               53               48 
     ## Oligodendrocytes             OPCs           Tcells            VSMCs 
     ##               53               49               48               46
+
+``` r
+# Visualize autoLabelledSeuratObject
+DimPlot(autoLabelledSeuratObject)
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-2-2.png)
