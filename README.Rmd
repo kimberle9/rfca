@@ -15,7 +15,7 @@ This package contains functions that trains a Random Forest Model with a labelle
 
 Manual cell annotation of scRNAseq datasets, typically based on marker genes, can be time-consuming and biased. Being able to automatically predict cell types/states in a cell-by-cell and cluster-unbiased way is useful for fast and accurate phenotyping. 
 
-In addition, despite the increasing amounts of scRNAseq datasets being generated, thorough analyis of these datasets is lagging, and/or done in silos. This package comes with a preloaded Random Forest model based on different datasets and cell types/states, that will be constantly updated. 
+In addition, despite the increasing amounts of scRNAseq datasets being generated, thorough analysis of these datasets is lagging, and/or done in silos. This package comes with a preloaded Random Forest model based on different datasets and cell types/states, that will be constantly updated. 
 
 # Installation
 
@@ -65,7 +65,7 @@ myPlot
 # Predict cells based on your own Random Forest Model created above
 autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandomForestModel)
 
-# Predict cells based on my pre-loaded and pre-train Random Forest Model
+# Predict cells based on my pre-loaded and pre-trained Random Forest Model
 autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
 
 ```
