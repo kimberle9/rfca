@@ -96,8 +96,6 @@ myPlot
 myList <- list()
 myList$Oligodendrocytes <- c("Mbp", "Mobp", "Plp1")
 myList$Microglia <- c("Iba1", "Cst7")
-#myPlot <- cellMarkerPlots(exampleSeuratObjectLabelled, geneList = myList)
-#myPlot
 ```
 
 
