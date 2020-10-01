@@ -21,6 +21,10 @@ In addition, despite the increasing amounts of scRNAseq datasets being generated
 
 You can install this package from GitHub with `devtools::install_github("kimberle9/rfca")`
 
+# Manual
+
+View the manual here: https://kimberle9.github.io/rfca/articles/vignette.html
+
 # Examples
 
 ## Example 1: Creating a Seurat Object
