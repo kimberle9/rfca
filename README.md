@@ -26,6 +26,12 @@ Installation
 You can install this package from GitHub with
 `devtools::install_github("kimberle9/rfca")`
 
+Manual
+======
+
+View the manual here:
+<a href="https://kimberle9.github.io/rfca/articles/vignette.html" class="uri">https://kimberle9.github.io/rfca/articles/vignette.html</a>
+
 Examples
 ========
 
@@ -71,13 +77,13 @@ myRandomForestModel <- createRFModel(exampleSeuratObjectLabelled)
     ##                      Number of trees: 500
     ## No. of variables tried at each split: 13
     ## 
-    ##         OOB estimate of  error rate: 4.21%
+    ##         OOB estimate of  error rate: 4.7%
     ## Confusion matrix:
     ##                  Astrocytes Endothelial Microglia Neurons Oligodendrocytes OPCs
     ## Astrocytes               46           0         0       0                1    0
     ## Endothelial               0          52         2       0                0    0
-    ## Microglia                 0           0        47       0                0    0
-    ## Neurons                   0           0         0      47                1    3
+    ## Microglia                 0           1        46       0                0    0
+    ## Neurons                   1           0         0      46                1    3
     ## Oligodendrocytes          0           0         0       1               46    0
     ## OPCs                      0           0         1       1                1   47
     ## Tcells                    0           0         2       0                0    0
@@ -85,8 +91,8 @@ myRandomForestModel <- createRFModel(exampleSeuratObjectLabelled)
     ##                  Tcells VSMCs class.error
     ## Astrocytes            0     0  0.02127660
     ## Endothelial           0     0  0.03703704
-    ## Microglia             0     0  0.00000000
-    ## Neurons               1     0  0.09615385
+    ## Microglia             0     0  0.02127660
+    ## Neurons               1     0  0.11538462
     ## Oligodendrocytes      0     0  0.02127660
     ## OPCs                  1     0  0.07843137
     ## Tcells               50     0  0.03846154
@@ -133,9 +139,9 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandom
 
     ## 
     ##       Astrocytes      Endothelial        Microglia          Neurons 
-    ##               56               45               59               43 
+    ##               57               45               59               43 
     ## Oligodendrocytes             OPCs           Tcells            VSMCs 
-    ##               54               49               48               42
+    ##               54               48               47               43
 
 ``` r
 # Predict cells based on my pre-loaded and pre-trained Random Forest Model
