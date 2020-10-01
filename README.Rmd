@@ -72,4 +72,25 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
 DimPlot(autoLabelledSeuratObject)
 
 ```
+## Example 3: Defining oligodendrocyte subtypes
+
+```{r eval = FALSE}
+library(rfca)
+library(Seurat)
+
+# Create Seurat object (microglia-only data)
+microglia <- createSeuratObjectPipeline(data.dir = "~/filtered_feature_bc_matrix") 
+
+# Define microglia subtypes based on cluster numbers
+DimPlot(microglia)
+
+# Build Random Forest Model with cluster number as labels
+microgliaModel <- createRFModel(microglia)
+
+# Phenotype subtype proportion for different mouse models
+mouseModel1 <- predictCells(mouseModel1, microgliaModel)
+mouseModel2 <- predictCells(mouseModel2, microgliaModel)
+mouseModel3 <- predictCells(mouseModel3, microgliaModel)
+
+```
 

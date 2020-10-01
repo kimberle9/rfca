@@ -71,20 +71,20 @@ myRandomForestModel <- createRFModel(exampleSeuratObjectLabelled)
     ##                      Number of trees: 500
     ## No. of variables tried at each split: 13
     ## 
-    ##         OOB estimate of  error rate: 3.96%
+    ##         OOB estimate of  error rate: 4.46%
     ## Confusion matrix:
     ##                  Astrocytes Endothelial Microglia Neurons Oligodendrocytes OPCs
     ## Astrocytes               46           0         0       0                1    0
-    ## Endothelial               0          54         0       0                0    0
+    ## Endothelial               0          52         2       0                0    0
     ## Microglia                 0           0        47       0                0    0
-    ## Neurons                   1           0         0      47                1    2
+    ## Neurons                   0           0         0      47                1    3
     ## Oligodendrocytes          0           0         0       1               46    0
     ## OPCs                      0           0         1       1                1   47
     ## Tcells                    0           0         2       1                0    0
     ## VSMCs                     1           0         1       0                0    0
     ##                  Tcells VSMCs class.error
     ## Astrocytes            0     0  0.02127660
-    ## Endothelial           0     0  0.00000000
+    ## Endothelial           0     0  0.03703704
     ## Microglia             0     0  0.00000000
     ## Neurons               1     0  0.09615385
     ## Oligodendrocytes      0     0  0.02127660
@@ -133,9 +133,9 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandom
 
     ## 
     ##       Astrocytes      Endothelial        Microglia          Neurons 
-    ##               56               45               58               43 
+    ##               55               45               59               44 
     ## Oligodendrocytes             OPCs           Tcells            VSMCs 
-    ##               55               48               48               43
+    ##               55               49               47               42
 
 ``` r
 # Predict cells based on my pre-loaded and pre-trained Random Forest Model
@@ -153,4 +153,24 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
 DimPlot(autoLabelledSeuratObject)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-2-2.png)
+![](README_files/figure-markdown_github/unnamed-chunk-2-2.png) \#\#
+Example 3: Defining oligodendrocyte subtypes
+
+``` r
+library(rfca)
+library(Seurat)
+
+# Create Seurat object (microglia-only data)
+microglia <- createSeuratObjectPipeline(data.dir = "~/filtered_feature_bc_matrix") 
+
+# Define microglia subtypes based on cluster numbers
+DimPlot(microglia)
+
+# Build Random Forest Model with cluster number as labels
+microgliaModel <- createRFModel(microglia)
+
+# Phenotype subtype proportion for different mouse models
+mouseModel1 <- predictCells(mouseModel1, microgliaModel)
+mouseModel2 <- predictCells(mouseModel2, microgliaModel)
+mouseModel3 <- predictCells(mouseModel3, microgliaModel)
+```

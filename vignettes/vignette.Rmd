@@ -1,0 +1,130 @@
+---
+title: "Introduction to rfca"
+output: rmarkdown::html_vignette
+author: Kimberle Shen
+date: 9/30/2020
+description: >
+  This vignette documents the functions in the rfca package. 
+vignette: >
+  %\VignetteIndexEntry{vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# rfca
+
+The rfca package contains functions that trains a Random Forest Model from single-cell RNA-Seq data, and allows the prediction of cell types and cell states in unlabelled datasets. It also contains a pre-trained Random Forest model, as well as example datasets.
+
+This can be used for automatically labelling cell types for downstream applications and subsetting, looking at proportions of cell subtypes, and finding similarities in cell types, sub cell types, or cell states in different datasets. 
+
+
+# Introduction
+
+Manual cell annotation of scRNAseq datasets, typically based on marker genes, can be time-consuming and biased. Being able to automatically predict cell types/states in a cell-by-cell and cluster-unbiased way is useful for fast and accurate phenotyping. 
+
+In addition, despite the increasing amounts of scRNAseq datasets being generated, thorough analysis of these datasets is lagging, and/or done in silos. This package comes with a preloaded Random Forest model based on different datasets and cell types/states, that will be constantly updated. 
+
+
+# Installation
+
+You can install this package from GitHub with `devtools::install_github("kimberleshen/rfca")`
+
+
+# Functions
+
+## Load packages and examples
+```{r}
+library(rfca)
+library(Seurat)
+data("exampleSeuratObjectUnlabelled") # example dataset
+data("exampleSeuratObjectLabelled") # example dataset
+```
+
+## createSeuratObjectPipeline()
+
+`createSeuratObjectPipeline()` is a function that creates a `Seurat` object from 10X cell ranger output, specifically the filtered_feature_bc_matrix directory containing the three files: barcodes.tsv.gz, matrix.mtx.gz, features.tsv.gz. It performs several steps in the `Seurat` pipeline, and returns a `Seurat` object with a computer pca and umap clusters as Idents (identities). These cluster Idents may be used as labels for training and building the Random Forest model with `createRFModel(seuratObject)` to identify similar cells in other datasets. Alternatively, Idents (such as cell type) can be manually added and used as labels. 
+
+```{r eval = FALSE}
+# Create Seurat Object with PCA and UMAP calculated
+mySeuratObject <- createSeuratObjectPipeline(data.dir = "~/filtered_feature_bc_matrix", 
+                                             nFeature_RNA_lower = 500, 
+                                             nFeature_RNA_upper = 5000, 
+                                             percent.mt = 5, 
+                                             nfeatures = 2000, 
+                                             dims = 20, 
+                                             clusterResolution = 0.8)
+```
+
+## createRFModel()
+
+This function should be used when there is a well-labelled dataset containing cell types you want to predict. `createRFModel()` is a function that generates a Random Forest model from a labelled Seurat Object, with each cell as a datapoint, and gene expression levels of the most variable genes (HVGs) as features. The default `nfeatures` is 200. The Idents (use `table(Idents(seuratObject))`) of each cell are its labels, and the values that will be predicted when the model is used in `predictCells(seuratObject, theRFModel)`. A low OOB error rate of the Random Forest model (<5%) implies the classified cell types from the input training dataset are well defined and separated.
+
+```{r}
+# Create Random Forest Model with your labelled Seurat Object
+myRandomForestModel <- createRFModel(exampleSeuratObjectLabelled, nfeatures = 200)
+```
+
+## markerGeneList()
+
+Given a Random Forest model, the `markerGeneList()` function is used to create lists of marker genes for each of the labels in the model. The dafault number of genes to return is 10. For each label in the Random Forest model, the top 10 most important genes for that label is returned, with the label as the name of that gene list. The returned list of list can be used in the `cellMarkerPlots()` function to visualize the combined/average expression of a set of genes in a single UMAP plot.
+
+```{r}
+# Create marker gene list from random forest model
+markerGeneList <- createGeneLists(myRandomForestModel)
+```
+
+
+## cellMarkerPlots()
+
+The `cellMarkerPlots()` function takes in a `Seurat` object and a list of gene list (list of list) and calculates the average expression of each gene list for each cell. A feature plot will be generated for each gene list, titled with the name of the name of the gene list, usually the labels of the Random Forest model if the list of gene list is generated with `createGeneList()`. Alternatively, the list of gene lists can be generated manually (eg. with your favorite cell type markers) and can be used for quicker annotation of clusters in an unlabelled dataset. 
+
+```{r}
+# Visualize Feature Plot based on marker gene list
+myPlot <- cellMarkerPlots(exampleSeuratObjectLabelled, geneList = markerGeneList)
+myPlot
+```
+
+```{r}
+# Make your own marker gene list
+myList <- list()
+myList$Oligodendrocytes <- c("Mbp", "Mobp", "Plp1")
+myList$Microglia <- c("Iba1", "Cst7")
+#myPlot <- cellMarkerPlots(exampleSeuratObjectLabelled, geneList = myList)
+#myPlot
+```
+
+
+## predictCells()
+
+This function takes a `Seurat` object and predicts the cell type for each cell is in a cluster-unbiased way. It returns the `Seurat` object with new labels as Idents. The Random Forest model used can be:
+
+1) User-specified, where labels can be anything: cell types, cell subtypes, cell states, cluster identities etc.
+2) Default models (currently only for mouse brain tissues). In the future, there will be several default models for different tissue types (mouse brain, mouse immune, mouse lung, human brain etc) to choose from (eg. `predictCells(exampleSeuratObjectUnlabelled, tissueType = mouseImmune))`
+
+```{r}
+# Predict cells based on your own Random Forest Model created above
+autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandomForestModel)
+
+# Predict cells based on my pre-loaded and pre-trained Random Forest Model
+autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
+
+# Visualize autoLabelledSeuratObject
+DimPlot(autoLabelledSeuratObject)
+```
+
+
+# Datasets
+
+The example datasets included, `exampleSeuratObjectUnlabelled` and `exampleSeuratObjectLabelled` are from mouse brain tissues. They are ~400 cells each and are in the `Seurat` object format. For `exampleSeuratObjectUnlabelled`, Idents are cluster numbers. For `exampleSeuratObjectLabelled`, Idents are cell types. 
+
+# Examples
+
+Some examples can be found in the README.
+
