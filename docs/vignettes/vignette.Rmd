@@ -34,7 +34,7 @@ In addition, despite the increasing amounts of scRNAseq datasets being generated
 
 # Installation
 
-You can install this package from GitHub with `devtools::install_github("kimberleshen/rfca")`
+You can install this package from GitHub with `devtools::install_github("kimberle9/rfca")`
 
 
 # Functions
