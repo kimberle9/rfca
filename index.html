@@ -123,25 +123,25 @@
 <span id="cb3-5"><a href="#cb3-5"></a><span class="co">##                      Number of trees: 500</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">## No. of variables tried at each split: 13</span></span>
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">## </span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">##         OOB estimate of  error rate: 4.7%</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">##         OOB estimate of  error rate: 4.46%</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="co">## Confusion matrix:</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a><span class="co">##                  Astrocytes Endothelial Microglia Neurons Oligodendrocytes OPCs</span></span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co">## Astrocytes               46           0         0       0                1    0</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">## Endothelial               0          52         2       0                0    0</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">## Microglia                 0           1        46       0                0    0</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">## Neurons                   1           0         0      46                1    3</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">## Endothelial               0          53         1       0                0    0</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">## Microglia                 0           0        47       0                0    0</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">## Neurons                   0           0         0      47                1    3</span></span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="co">## Oligodendrocytes          0           0         0       1               46    0</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">## OPCs                      0           0         1       1                1   47</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">## Tcells                    0           0         2       0                0    0</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">## OPCs                      0           0         1       2                1   46</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">## Tcells                    0           0         2       1                0    0</span></span>
 <span id="cb3-18"><a href="#cb3-18"></a><span class="co">## VSMCs                     1           0         1       0                0    0</span></span>
 <span id="cb3-19"><a href="#cb3-19"></a><span class="co">##                  Tcells VSMCs class.error</span></span>
 <span id="cb3-20"><a href="#cb3-20"></a><span class="co">## Astrocytes            0     0  0.02127660</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">## Endothelial           0     0  0.03703704</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">## Microglia             0     0  0.02127660</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">## Neurons               1     0  0.11538462</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">## Endothelial           0     0  0.01851852</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">## Microglia             0     0  0.00000000</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">## Neurons               1     0  0.09615385</span></span>
 <span id="cb3-24"><a href="#cb3-24"></a><span class="co">## Oligodendrocytes      0     0  0.02127660</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">## OPCs                  1     0  0.07843137</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">## Tcells               50     0  0.03846154</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">## OPCs                  1     0  0.09803922</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co">## Tcells               49     0  0.05769231</span></span>
 <span id="cb3-27"><a href="#cb3-27"></a><span class="co">## VSMCs                 0    52  0.03703704</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co"># Create marker gene list from random forest model</span>
@@ -173,9 +173,9 @@
 <span class="va">autoLabelledSeuratObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predictCells.html">predictCells</a></span><span class="op">(</span><span class="va">exampleSeuratObjectUnlabelled</span>, <span class="va">myRandomForestModel</span><span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">## </span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">##       Astrocytes      Endothelial        Microglia          Neurons </span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">##               57               45               59               43 </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">##               56               45               59               44 </span></span>
 <span id="cb10-4"><a href="#cb10-4"></a><span class="co">## Oligodendrocytes             OPCs           Tcells            VSMCs </span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">##               54               48               47               43</span></span></code></pre></div>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">##               55               48               48               41</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit">
 <span class="co"># Predict cells based on my pre-loaded and pre-trained Random Forest Model</span>
 <span class="va">autoLabelledSeuratObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predictCells.html">predictCells</a></span><span class="op">(</span><span class="va">exampleSeuratObjectUnlabelled</span><span class="op">)</span></pre></div>
@@ -189,9 +189,9 @@
 <span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/DimPlot.html">DimPlot</a></span><span class="op">(</span><span class="va">autoLabelledSeuratObject</span><span class="op">)</span></pre></div>
 <p><img src="README_files/figure-markdown_github/unnamed-chunk-2-2.png"></p>
 </div>
-<div id="example-3-defining-oligodendrocyte-subtypes" class="section level2">
+<div id="example-3-defining-microglia-subtypes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-3-defining-oligodendrocyte-subtypes" class="anchor"></a>Example 3: Defining oligodendrocyte subtypes</h2>
+<a href="#example-3-defining-microglia-subtypes" class="anchor"></a>Example 3: Defining microglia subtypes</h2>
 <div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rfca</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat">Seurat</a></span><span class="op">)</span>
