@@ -77,25 +77,25 @@ myRandomForestModel <- createRFModel(exampleSeuratObjectLabelled)
     ##                      Number of trees: 500
     ## No. of variables tried at each split: 13
     ## 
-    ##         OOB estimate of  error rate: 4.7%
+    ##         OOB estimate of  error rate: 4.46%
     ## Confusion matrix:
     ##                  Astrocytes Endothelial Microglia Neurons Oligodendrocytes OPCs
     ## Astrocytes               46           0         0       0                1    0
-    ## Endothelial               0          52         2       0                0    0
-    ## Microglia                 0           1        46       0                0    0
-    ## Neurons                   1           0         0      46                1    3
+    ## Endothelial               0          53         1       0                0    0
+    ## Microglia                 0           0        47       0                0    0
+    ## Neurons                   0           0         0      47                1    3
     ## Oligodendrocytes          0           0         0       1               46    0
-    ## OPCs                      0           0         1       1                1   47
-    ## Tcells                    0           0         2       0                0    0
+    ## OPCs                      0           0         1       2                1   46
+    ## Tcells                    0           0         2       1                0    0
     ## VSMCs                     1           0         1       0                0    0
     ##                  Tcells VSMCs class.error
     ## Astrocytes            0     0  0.02127660
-    ## Endothelial           0     0  0.03703704
-    ## Microglia             0     0  0.02127660
-    ## Neurons               1     0  0.11538462
+    ## Endothelial           0     0  0.01851852
+    ## Microglia             0     0  0.00000000
+    ## Neurons               1     0  0.09615385
     ## Oligodendrocytes      0     0  0.02127660
-    ## OPCs                  1     0  0.07843137
-    ## Tcells               50     0  0.03846154
+    ## OPCs                  1     0  0.09803922
+    ## Tcells               49     0  0.05769231
     ## VSMCs                 0    52  0.03703704
 
 ``` r
@@ -139,9 +139,9 @@ autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandom
 
     ## 
     ##       Astrocytes      Endothelial        Microglia          Neurons 
-    ##               57               45               59               43 
+    ##               56               45               59               44 
     ## Oligodendrocytes             OPCs           Tcells            VSMCs 
-    ##               54               48               47               43
+    ##               55               48               48               41
 
 ``` r
 # Predict cells based on my pre-loaded and pre-trained Random Forest Model
@@ -161,8 +161,8 @@ DimPlot(autoLabelledSeuratObject)
 
 ![](README_files/figure-markdown_github/unnamed-chunk-2-2.png)
 
-Example 3: Defining oligodendrocyte subtypes
---------------------------------------------
+Example 3: Defining microglia subtypes
+--------------------------------------
 
 ``` r
 library(rfca)

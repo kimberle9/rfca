@@ -77,7 +77,7 @@ DimPlot(autoLabelledSeuratObject)
 
 ```
 
-## Example 3: Defining oligodendrocyte subtypes
+## Example 3: Defining microglia subtypes
 
 ```{r eval = FALSE}
 library(rfca)
