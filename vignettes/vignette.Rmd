@@ -83,7 +83,7 @@ markerGeneList <- createGeneLists(myRandomForestModel)
 
 ## cellMarkerPlots()
 
-The `cellMarkerPlots()` function takes in a `Seurat` object and a list of gene list (list of list) and calculates the average expression of each gene list for each cell. A feature plot will be generated for each gene list, titled with the name of the name of the gene list, usually the labels of the Random Forest model if the list of gene list is generated with `createGeneList()`. Alternatively, the list of gene lists can be generated manually (eg. with your favorite cell type markers) and can be used for quicker annotation of clusters in an unlabelled dataset. 
+The `cellMarkerPlots()` function takes in a `Seurat` object and a list of gene list (list of list) and calculates the average expression of each gene list for each cell. A feature plot will be generated for each gene list, titled with the name of the name of the gene list, usually the labels of the Random Forest model if the list of gene list is generated with `createGeneList()`. Check documentation for params to customize the look of the feature plot. Alternatively, the list of gene lists can be generated manually (eg. with your favorite cell type markers) and can be used for quicker annotation of clusters in an unlabelled dataset. 
 
 ```{r}
 # Visualize Feature Plot based on marker gene list
@@ -104,7 +104,7 @@ myList$Microglia <- c("Iba1", "Cst7")
 This function takes a `Seurat` object and predicts the cell type for each cell is in a cluster-unbiased way. It returns the `Seurat` object with new labels as Idents. The Random Forest model used can be:
 
 1) User-specified, where labels can be anything: cell types, cell subtypes, cell states, cluster identities etc.
-2) Default models (currently only for mouse brain tissues). In the future, there will be several default models for different tissue types (mouse brain, mouse immune, mouse lung, human brain etc) to choose from (eg. `predictCells(exampleSeuratObjectUnlabelled, tissueType = mouseImmune))`
+2) In-built models include mouseBrain (default), mouseLiver, mouseHeart, mouseKidney, mouseMuscle, humanPBMC to choose from (eg. `predictCells(exampleSeuratObjectUnlabelled, mouseMuscle))`. If no model is supplied, mouseBrain will be used as the default. 
 
 ```{r}
 # Predict cells based on your own Random Forest Model created above
@@ -121,6 +121,9 @@ DimPlot(autoLabelledSeuratObject)
 # Datasets
 
 The example datasets included, `exampleSeuratObjectUnlabelled` and `exampleSeuratObjectLabelled` are from mouse brain tissues. They are ~400 cells each and are in the `Seurat` object format. For `exampleSeuratObjectUnlabelled`, Idents are cluster numbers. For `exampleSeuratObjectLabelled`, Idents are cell types. 
+
+Some data used for training the different tissue models are from: https://tabula-muris.ds.czbiohub.org/
+
 
 # Examples
 

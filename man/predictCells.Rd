@@ -2,20 +2,20 @@
 % Please edit documentation in R/predictCells.R
 \name{predictCells}
 \alias{predictCells}
-\title{Takes a Seurat Object and returns the Seurat Object with predicted CNS cell types as Idents}
+\title{Takes a Seurat Object and returns the Seurat Object with predicted cell types as Idents}
 \usage{
-predictCells(seuratObj, rfModel = rfmodel)
+predictCells(seuratObj, rfModel = mouseBrain)
 }
 \arguments{
 \item{seuratObj}{Seurat Object.}
 
-\item{rfModel}{Random Forest Object from randomForest package. Default: A Random Forest Object trained with CNS cell types.}
+\item{rfModel}{Random Forest Object from randomForest package. In-built options include mouseBrain (default), mouseLiver, mouseKidney, mouseHeart, mouseMuscle, humanPBMC. You can also use your own Random Forest object created with createRFModel().}
 }
 \value{
 Seurat Object with predicted cell types as Idents and stored under "predictedCellType" metadata
 }
 \description{
-Takes a Seurat Object and returns the Seurat Object with predicted CNS cell types as Idents
+Takes a Seurat Object and returns the Seurat Object with predicted cell types as Idents
 }
 \author{
 Kimberle Shen

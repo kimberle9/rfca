@@ -22,7 +22,7 @@ createRFModel<- function(labelled.seurat.obj, nfeatures = 200){
   merged <- merge(m, table, by = "row.names", all = TRUE)
   merged$V1 <- as.factor(merged$V1)
   merged$"Row.names" <- merged$"row.names" <- NULL
-  rfmodel <- randomForest(V1 ~ ., data=merged, importance=TRUE, proximity=TRUE)
+  rfmodel <- randomForest(V1 ~ ., data=merged, importance=TRUE, proximity=TRUE, na.action=na.roughfix)
   print (rfmodel)
   return (rfmodel)
 }

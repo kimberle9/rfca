@@ -33,10 +33,9 @@ View the manual here: https://kimberle9.github.io/rfca/articles/vignette.html
 # Load the rfca and Seurat libraries, as well as example datasets
 library(rfca)
 library(Seurat)
-data("exampleSeuratObjectUnlabelled")
-data("exampleSeuratObjectLabelled")
 
 # Create Seurat Object with PCA and UMAP calculated
+# Cell ranger raw data ("/filtered_feature_bc_matrix" directory) is required for this step
 mySeuratObject <- createSeuratObjectPipeline(data.dir = "~/filtered_feature_bc_matrix", 
                                              nFeature_RNA_lower = 500, 
                                              nFeature_RNA_upper = 5000, 
@@ -70,6 +69,8 @@ myPlot
 autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled, myRandomForestModel)
 
 # Predict cells based on my pre-loaded and pre-trained Random Forest Model
+# With no model passed in, default model used is mouseBrain.
+# See documentation for available tissue types. 
 autoLabelledSeuratObject <- predictCells(exampleSeuratObjectUnlabelled)
 
 # Visualize autoLabelledSeuratObject

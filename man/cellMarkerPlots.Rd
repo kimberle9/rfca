@@ -4,12 +4,30 @@
 \alias{cellMarkerPlots}
 \title{Creates Feature Plots based on average gene expression of a list of genes}
 \usage{
-cellMarkerPlots(seuratObj, geneList = gsl)
+cellMarkerPlots(
+  seuratObj,
+  geneList = gsl,
+  pt.size = 0.3,
+  label = FALSE,
+  label.size = 3,
+  repel = FALSE,
+  combine = TRUE
+)
 }
 \arguments{
 \item{seuratObj}{Seurat Object}
 
 \item{geneList}{A list of lists containing gene names}
+
+\item{pt.size}{Size of each point/cell on the UMAP plot. Default is 0.3}
+
+\item{label}{Whether to have Ident labels on the UMAP plot. Default is FALSE.}
+
+\item{label.size}{Size of Indent labels on UMAP plot. Default is 3.}
+
+\item{repel}{Whether to repel Indent labels on UMAP plot. Default is FALSE.}
+
+\item{combine}{Whether to stitch/combine all the UMAP plots into 1 ggplot object. Default is TRUE.}
 }
 \value{
 Feature plot with gene set scores

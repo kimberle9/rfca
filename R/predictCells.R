@@ -1,7 +1,7 @@
-##' Takes a Seurat Object and returns the Seurat Object with predicted CNS cell types as Idents
+##' Takes a Seurat Object and returns the Seurat Object with predicted cell types as Idents
 ##'
 ##' @param seuratObj Seurat Object.
-##' @param rfModel Random Forest Object from randomForest package. Default: A Random Forest Object trained with CNS cell types.
+##' @param rfModel Random Forest Object from randomForest package. In-built options include mouseBrain (default), mouseLiver, mouseKidney, mouseHeart, mouseMuscle, humanPBMC. You can also use your own Random Forest object created with createRFModel().
 ##' @author Kimberle Shen
 ##' @return Seurat Object with predicted cell types as Idents and stored under "predictedCellType" metadata
 ##' @import Seurat
@@ -9,7 +9,7 @@
 ##' @export
 ##'
 
-predictCells <- function(seuratObj, rfModel = rfmodel){
+predictCells <- function(seuratObj, rfModel = mouseBrain){
   matrix <- as.matrix(GetAssayData(seuratObj, slot = "counts"))
   genelist <- row.names(importance(rfModel))
   m <- subset(matrix, rownames(matrix) %in% genelist)

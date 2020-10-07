@@ -112,7 +112,15 @@
     <p>Creates Feature Plots based on average gene expression of a list of genes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cellMarkerPlots</span><span class='op'>(</span><span class='va'>seuratObj</span>, geneList <span class='op'>=</span> <span class='va'>gsl</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>cellMarkerPlots</span><span class='op'>(</span>
+  <span class='va'>seuratObj</span>,
+  geneList <span class='op'>=</span> <span class='va'>gsl</span>,
+  pt.size <span class='op'>=</span> <span class='fl'>0.3</span>,
+  label <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  label.size <span class='op'>=</span> <span class='fl'>3</span>,
+  repel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  combine <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -124,6 +132,26 @@
     <tr>
       <th>geneList</th>
       <td><p>A list of lists containing gene names</p></td>
+    </tr>
+    <tr>
+      <th>pt.size</th>
+      <td><p>Size of each point/cell on the UMAP plot. Default is 0.3</p></td>
+    </tr>
+    <tr>
+      <th>label</th>
+      <td><p>Whether to have Ident labels on the UMAP plot. Default is FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>label.size</th>
+      <td><p>Size of Indent labels on UMAP plot. Default is 3.</p></td>
+    </tr>
+    <tr>
+      <th>repel</th>
+      <td><p>Whether to repel Indent labels on UMAP plot. Default is FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>combine</th>
+      <td><p>Whether to stitch/combine all the UMAP plots into 1 ggplot object. Default is TRUE.</p></td>
     </tr>
     </table>
 
