@@ -46,6 +46,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/vignette.html">Introduction to rfca</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
 </div>
@@ -91,10 +103,9 @@
 <span class="co"># Load the rfca and Seurat libraries, as well as example datasets</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rfca</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat">Seurat</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"exampleSeuratObjectUnlabelled"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"exampleSeuratObjectLabelled"</span><span class="op">)</span>
 
 <span class="co"># Create Seurat Object with PCA and UMAP calculated</span>
+<span class="co"># Cell ranger raw data ("/filtered_feature_bc_matrix" directory) is required for this step</span>
 <span class="va">mySeuratObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/createSeuratObjectPipeline.html">createSeuratObjectPipeline</a></span><span class="op">(</span>data.dir <span class="op">=</span> <span class="st">"~/filtered_feature_bc_matrix"</span>, 
                                              nFeature_RNA_lower <span class="op">=</span> <span class="fl">500</span>, 
                                              nFeature_RNA_upper <span class="op">=</span> <span class="fl">5000</span>, 
@@ -118,21 +129,21 @@
 <span class="va">myRandomForestModel</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/createRFModel.html">createRFModel</a></span><span class="op">(</span><span class="va">exampleSeuratObjectLabelled</span><span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## </span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="co">## Call:</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">##  randomForest(formula = V1 ~ ., data = merged, importance = TRUE,      proximity = TRUE) </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">##  randomForest(formula = V1 ~ ., data = merged, importance = TRUE,      proximity = TRUE, na.action = na.roughfix) </span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co">##                Type of random forest: classification</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a><span class="co">##                      Number of trees: 500</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">## No. of variables tried at each split: 13</span></span>
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">## </span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">##         OOB estimate of  error rate: 4.46%</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">##         OOB estimate of  error rate: 3.96%</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="co">## Confusion matrix:</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a><span class="co">##                  Astrocytes Endothelial Microglia Neurons Oligodendrocytes OPCs</span></span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co">## Astrocytes               46           0         0       0                1    0</span></span>
 <span id="cb3-12"><a href="#cb3-12"></a><span class="co">## Endothelial               0          53         1       0                0    0</span></span>
 <span id="cb3-13"><a href="#cb3-13"></a><span class="co">## Microglia                 0           0        47       0                0    0</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">## Neurons                   0           0         0      47                1    3</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">## Neurons                   1           0         0      47                1    2</span></span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="co">## Oligodendrocytes          0           0         0       1               46    0</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">## OPCs                      0           0         1       2                1   46</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">## Tcells                    0           0         2       1                0    0</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">## OPCs                      0           0         1       1                1   47</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">## Tcells                    0           0         2       0                0    0</span></span>
 <span id="cb3-18"><a href="#cb3-18"></a><span class="co">## VSMCs                     1           0         1       0                0    0</span></span>
 <span id="cb3-19"><a href="#cb3-19"></a><span class="co">##                  Tcells VSMCs class.error</span></span>
 <span id="cb3-20"><a href="#cb3-20"></a><span class="co">## Astrocytes            0     0  0.02127660</span></span>
@@ -140,8 +151,8 @@
 <span id="cb3-22"><a href="#cb3-22"></a><span class="co">## Microglia             0     0  0.00000000</span></span>
 <span id="cb3-23"><a href="#cb3-23"></a><span class="co">## Neurons               1     0  0.09615385</span></span>
 <span id="cb3-24"><a href="#cb3-24"></a><span class="co">## Oligodendrocytes      0     0  0.02127660</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">## OPCs                  1     0  0.09803922</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">## Tcells               49     0  0.05769231</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">## OPCs                  1     0  0.07843137</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co">## Tcells               50     0  0.03846154</span></span>
 <span id="cb3-27"><a href="#cb3-27"></a><span class="co">## VSMCs                 0    52  0.03703704</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co"># Create marker gene list from random forest model</span>
@@ -173,11 +184,13 @@
 <span class="va">autoLabelledSeuratObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predictCells.html">predictCells</a></span><span class="op">(</span><span class="va">exampleSeuratObjectUnlabelled</span>, <span class="va">myRandomForestModel</span><span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">## </span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">##       Astrocytes      Endothelial        Microglia          Neurons </span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">##               56               45               59               44 </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">##               56               45               59               43 </span></span>
 <span id="cb10-4"><a href="#cb10-4"></a><span class="co">## Oligodendrocytes             OPCs           Tcells            VSMCs </span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">##               55               48               48               41</span></span></code></pre></div>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">##               54               49               47               43</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit">
 <span class="co"># Predict cells based on my pre-loaded and pre-trained Random Forest Model</span>
+<span class="co"># With no model passed in, default model used is mouseBrain.</span>
+<span class="co"># See documentation for available tissue types. </span>
 <span class="va">autoLabelledSeuratObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predictCells.html">predictCells</a></span><span class="op">(</span><span class="va">exampleSeuratObjectUnlabelled</span><span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">## </span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="co">##       Astrocytes      Endothelial        Microglia          Neurons </span></span>
